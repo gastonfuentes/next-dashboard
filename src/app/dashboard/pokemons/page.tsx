@@ -1,6 +1,6 @@
-import { SimplePokemon } from '../../pokemons/interfaces/simple-pokemon-response';
-import { PokemonsResponse } from '../../pokemons/interfaces/pokemons-response';
-import { PokemonGrid } from '@/app/pokemons';
+
+import { PokemonGrid, PokemonsResponse, SimplePokemon } from '@/pokemons';
+
 
 
 
