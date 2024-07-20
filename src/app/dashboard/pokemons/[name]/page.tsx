@@ -5,29 +5,23 @@ import { notFound } from "next/navigation";
 
 
 interface Props {
-    params: { id: string }
+    params: { name: string }
 }
 
 
 //funcion para crear paginas dinamicas
-export async function generateStaticParams() {
+/* export async function generateStaticParams() {
 
-    const static151Pokemons = Array.from({ length: 151 }).map((v, i) => `${i + 1}`)
+    const static151NamePokemons = Array.from({ length: 151 }).map((v, i) => `${i + 1}`)
 
-    /*   console.log(static151Pokemons); */
+      console.log(static151NamePokemons);
 
-    return static151Pokemons.map(id => ({
+    return static151NamePokemons.map(id => ({
         id: id
     }))
 
-    /* return [
-        { id: '1' },
-        { id: '2' },
-        { id: '3' },
-        { id: '4' },
-        { id: '5' },
-    ] */
-}
+ 
+} */
 
 
 
@@ -35,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     try {
 
-        const { id, name } = await getPokemon(params.id)
+        const { id, name } = await getPokemon(params.name)
 
         return {
             title: `#${id} - ${name}`,
@@ -52,10 +46,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 }
 
-const getPokemon = async (id: string): Promise<Pokemon> => {
+const getPokemon = async (name: string): Promise<Pokemon> => {
 
     try {
-        const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, { cache: 'force-cache' }).then(resp => resp.json()) //TODO: cambiar en un futuro
+        const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, { cache: 'force-cache' }).then(resp => resp.json()) //TODO: cambiar en un futuro
 
         console.log('se cargo: ', pokemon.name);
 
@@ -70,7 +64,10 @@ const getPokemon = async (id: string): Promise<Pokemon> => {
 
 export default async function PokemonPage({ params }: Props) {
 
-    const pokemon = await getPokemon(params.id);
+    console.log(params);
+
+
+    const pokemon = await getPokemon(params.name);
 
 
     return (
@@ -169,4 +166,5 @@ export default async function PokemonPage({ params }: Props) {
             </div>
         </div>
     );
+
 }
